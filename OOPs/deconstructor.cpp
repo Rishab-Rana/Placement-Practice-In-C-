@@ -29,9 +29,8 @@ class student{
       rollNo=a.rollNo;
       course=a.course;
   }
-
-  ~student(){
-   cout<<"Decounstructor called"; 
+    ~student(){
+   cout<<"Decounstructor called"<<endl; 
   }
 };
 
