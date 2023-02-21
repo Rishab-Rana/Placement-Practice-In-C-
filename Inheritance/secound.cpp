@@ -13,13 +13,9 @@ class child : public parent{
     
 };
 
-class grandchild : public child{
-
-};
-
 int main() {
   
-  grandchild x;
+  child x;
   x.func();
     return 0;
 }
