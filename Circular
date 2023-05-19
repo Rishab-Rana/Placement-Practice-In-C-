@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* createNode(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+    return newNode;
+}
+
+struct Node* insert(struct Node* head, int value) {
+    struct Node* newNode = createNode(value);
+    if (head == NULL) {
+        newNode->next = newNode; // Points to itself for circularity
+        return newNode;
+    }
+
+    struct Node* temp = head;
+    while (temp->next != head) {
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+    newNode->next = head;
+
+    return head;
+}
+
+int countNodes(struct Node* head) {
+    if (head == NULL) {
+        return 0;
+    }
+
+    struct Node* current = head;
+    int count = 0;
+
+    do {
+        count++;
+        current = current->next;
+    } while (current != head);
+
+    return count;
+}
+
+void displayList(struct Node* head) {
+    if (head == NULL) {
+        printf("List is empty.\n");
+        return;
+    }
+
+    struct Node* current = head;
+
+    do {
+        printf("%d ", current->data);
+        current = current->next;
+    } while (current != head);
+
+    printf("\n");
+}
+
+int main() {
+    struct Node* head = NULL;
+
+    // Insert elements into circular linked list
+    head = insert(head, 10);
+    head = insert(head, 20);
+    head = insert(head, 30);
+    head = insert(head, 40);
+    head = insert(head, 50);
+
+    printf("Circular Linked List: ");
+    displayList(head);
+
+    int nodeCount = countNodes(head);
+    printf("Number of nodes: %d\n", nodeCount);
+
+    return 0;
+}
